@@ -38,7 +38,7 @@ PALETA_DE_CORES = {
 BOTAO_ABRIR_PALETA_POS = (722, 845) # Coordenada fornecida na descrição
 
 # --- Configurações do Bot ---
-COOLDOWN_ENTRE_ACOES = 10
+COOLDOWN_ENTRE_ACOES = 0.5
 ESCALA_TELA = 2  # 2 para telas Retina de MacBook, 1 para telas normais.
 ESCALA_DE_PIXELS = 16
 TOLERANCIA_COR = 20 # Quão diferentes as cores podem ser para ainda serem consideradas "iguais".
