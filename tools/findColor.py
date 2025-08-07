@@ -14,7 +14,7 @@ COR_DE_FUNDO = (0, 0, 0)
 # ======================================================
 
 def encontrar_limites_paleta(img, cor_fundo):
-    """Encontra as coordenadas da caixa que contém todos os pixels que não são de fundo."""
+    """Encontra as coordenadas da caixa que contém tçodos os pixels que não são de fundo."""
     largura, altura = img.size
     min_x, min_y = largura, altura
     max_x, max_y = -1, -1
