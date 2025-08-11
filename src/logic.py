@@ -55,7 +55,8 @@ def encontrar_proximo_alvo(imagem_gabarito, imagem_gabarito_redimensionada, orig
                 x_OG = (x_rel * ESCALA_DE_PIXELS + ESCALA_DE_PIXELS / 2) / 2 + x_cor
                 y_OG = (y_rel * ESCALA_DE_PIXELS + ESCALA_DE_PIXELS / 2) / 2 + y_cor
 
-                print(f"Coordenada corrigida: ({x_OG}, {y_OG})")
+                print(f"Coordenada corrigida: ({x_cor}, {y_cor})")
+                print(f"Coordenada com correção: ({x_OG}, {y_OG})")
                 print(f"Coordenada redimensionada: ({x_rel}, {y_rel})")
 
                 return {'coord_arte': (x_OG, y_OG), 'cor_alvo': cor_gabarito_rgb}

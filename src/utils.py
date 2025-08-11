@@ -1,5 +1,6 @@
 
 import math
+from config import *
 
 # ==============================================================================
 # =========================== FUNÇÕES AUXILIARES ===============================
@@ -20,7 +21,7 @@ def mecanismo_de_correção_de_pixels(dim_original, dim_pixel, dim_pixel_complet
 
     porcentagem_percorrida = dim_pixel / dim_pixel_completa
     print(f"Porcentagem percorrida: {porcentagem_percorrida:.2f}")
-    cor = (dim_original - 16 * dim_pixel_completa) * porcentagem_percorrida
+    cor = (dim_original - ESCALA_DE_PIXELS * dim_pixel_completa) * porcentagem_percorrida
     print(f"Cor corrigida: {cor:.2f}")
 
     return cor
