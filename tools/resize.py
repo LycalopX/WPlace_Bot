@@ -24,5 +24,6 @@ def resize_image(input_path, output_path, proportion):
 if __name__ == "__main__":
 #    proportion = (1.02455357143 * 8 / 5)
 #    proportion = (1/3.79439252336)
-    proportion = 1/16
-    resize_image("./Takanaka.png", "./Takanaka_resized.png", proportion)
+#    proportion = 16.6170212766
+    proportion = 5
+    resize_image("./takanaka_orang.png", "./wbu2.png", proportion)

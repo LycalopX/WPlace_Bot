@@ -3,13 +3,14 @@
 # ======================== CONFç=================================================
 
 # --- Configurações do Alvo ---
-CAMINHO_IMAGEM_A_PINTAR = '../images/sceptile/new_big_sceptile.png'
-CAMINHO_IMAGEM_A_PINTAR_REDIMENSIONADA = '../images/sceptile/big_sceptile_resized.png'
+CAMINHO_IMAGEM_A_PINTAR = '../images/marisu_face/marisu_cut.png'
+CAMINHO_IMAGEM_A_PINTAR_REDIMENSIONADA = '../images/marisu_face/marisu_cut_resized.png'
 CAMINHO_SCREENSHOT_TEMP = '../images/temp_screenshot.png'
 CAMINHO_SCREENSHOT_TEMP_REDIMENSIONADA = '../images/screenshot_jogo_redimensionada.png'
 
 # SCEPTILE PONTO_DE_ORIGEM_MAPA = (609, 384) # Ponto (X, Y) do pixel do canto superior esquerdo da sua arte no mapa.
-PONTO_DE_ORIGEM_MAPA = (292, 122) # Ponto (X, Y) do pixel do canto superior esquerdo da sua arte no mapa.
+# PONTO_DE_ORIGEM_MAPA = (292, 122) # Ponto (X, Y) do pixel do canto superior esquerdo da sua arte no mapa. - Mais comum
+PONTO_DE_ORIGEM_MAPA = (45,122)
 
 # --- Configurações do Jogo ---
 PALETA_DE_CORES = {
@@ -83,11 +84,12 @@ BOTAO_ABRIR_PALETA_POS = (722, 845) # Coordenada fornecida na descrição
 COOLDOWN_ENTRE_ACOES = 10
 ESCALA_TELA = 2  # 2 para telas Retina de MacBook, 1 para telas normais.
 # PARA SCEPTILE ESCALA_DE_PIXELS = 16
-ESCALA_DE_PIXELS = 16 * 1.024
+# ESCALA_DE_PIXELS = 16 * 1.024
+ESCALA_DE_PIXELS = 16.6170212766
 TOLERANCIA_COR = 20 # Quão diferentes as cores podem ser para ainda serem consideradas "iguais".
 SWITCH_TABS = 1
 
-NUMERO_DE_PIXELS_POR_VEZ = 90
+NUMERO_DE_PIXELS_POR_VEZ = 100
 NUMERO_DE_CONTAS = 6
 
 DEBUG_SKIP = 30
