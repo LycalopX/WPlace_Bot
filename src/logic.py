@@ -90,10 +90,10 @@ def pintar_pixel(coord_arte, cor_alvo, cor_anterior):
         if (cor_anterior != cor_na_paleta):
             print(f"A melhor cor para o trabalho é {cor_na_paleta}")
             pyautogui.click(pos_cor_na_tela[0], pos_cor_na_tela[1])
-            time.sleep(0.5)
+            time.sleep(0.4 * SLEEP_COEFICIENT)
 
         pyautogui.click(pos_mapa_na_tela[0], pos_mapa_na_tela[1])
-        time.sleep(0.3)
+        time.sleep(0.3 * SLEEP_COEFICIENT)
 
         return cor_na_paleta
 

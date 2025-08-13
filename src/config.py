@@ -4,7 +4,7 @@
 # ==============================================================================
 
 # escolha sua config!
-from configs.mew_config import *
+from configs.lucky_star import *
 
 # --- Configurações do Alvo ---
 CAMINHO_SCREENSHOT_TEMP = './images/temp_screenshot.png'
@@ -86,8 +86,10 @@ COOLDOWN_ENTRE_ACOES = 10
 ESCALA_TELA = 2  # 2 para telas Retina de MacBook, 1 para telas normais.
 # PARA SCEPTILE ESCALA_DE_PIXELS = 16
 # ESCALA_DE_PIXELS = 16.6170212766
-TOLERANCIA_COR = 20 # Quão diferentes as cores podem ser para ainda serem consideradas "iguais".
+TOLERANCIA_COR = 25 # Quão diferentes as cores podem ser para ainda serem consideradas "iguais".
 SWITCH_TABS = 1
 
-NUMERO_DE_PIXELS_POR_VEZ = 3
+NUMERO_DE_PIXELS_POR_VEZ = 144
 NUMERO_DE_CONTAS = 6
+
+SLEEP_COEFICIENT = 0.5

@@ -45,7 +45,7 @@ if __name__ == "__main__":
         w, h = imagem_gabarito.width // ESCALA_TELA, imagem_gabarito.height // ESCALA_TELA
         caminho_temp = CAMINHO_SCREENSHOT_TEMP
 
-        time.sleep(2)
+        time.sleep(1)
 
         try:
             print(f"Capturando área de {w}x{h} pontos começando em ({x}, {y})...")
