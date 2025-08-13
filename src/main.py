@@ -1,9 +1,15 @@
+import sys
+import os
+
+# Add the project's root directory (WPlace) to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import time
 
 # Importando nossas configurações e utilitários
-from config import *
-from utils import *
-from logic import *
+from src.config import *
+from src.utils import *
+from src.logic import *
 import pyautogui
 
 import subprocess
@@ -60,6 +66,9 @@ if __name__ == "__main__":
             if alvo is None:
                 print("\n✅🎉====== DESENHO CONCLUÍDO E VERIFICADO! ======🎉✅")
                 print("Aguardando 180 segundos antes de verificar novamente...")
+
+                time.sleep(2)
+                pyautogui.click(BOTAO_ABRIR_PALETA_POS[0], BOTAO_ABRIR_PALETA_POS[1])
                 time.sleep(180)
                 continue
 

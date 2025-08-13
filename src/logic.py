@@ -3,8 +3,8 @@ import time
 from PIL import Image
 
 # Importando nossas configurações e utilitários
-from config import *
-from utils import *
+from src.config import *
+from src.utils import *
 
 # Lógica do bot
 
@@ -41,8 +41,6 @@ def encontrar_proximo_alvo(imagem_gabarito, imagem_gabarito_redimensionada, orig
 
             # 3. Compara a cor da tela com a cor ideal DA PALETA, não do gabarito.
             if not cores_sao_proximas(cor_ideal_na_paleta, cor_atual_jogo_rgb, TOLERANCIA_COR):
-
-                Skips = DEBUG_SKIP
 
                 if (Número_de_pixels_pintados > 0):
                     Número_de_pixels_pintados -= 1

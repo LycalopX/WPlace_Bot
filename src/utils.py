@@ -1,6 +1,6 @@
 
 import math
-from config import *
+from src.config import *
 import pyautogui
 import time
 

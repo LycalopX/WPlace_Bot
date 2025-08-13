@@ -25,5 +25,5 @@ if __name__ == "__main__":
 #    proportion = (1.02455357143 * 8 / 5)
 #    proportion = (1/3.79439252336)
 #    proportion = 16.6170212766
-    proportion = 5
-    resize_image("./takanaka_orang.png", "./wbu2.png", proportion)
+    proportion = 1.024*16
+    resize_image("./mew_resized.png", "./mew.png", proportion)
