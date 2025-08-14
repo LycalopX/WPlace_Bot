@@ -66,7 +66,7 @@ if __name__ == '__main__':
     replace_color_with_tolerance(
         input_file, 
         color_to_replace, 
-        new_replacement_color, 
+        new_replacement_color,
         'output.png', 
         tolerance=color_tolerance
     )

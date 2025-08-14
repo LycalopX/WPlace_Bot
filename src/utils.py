@@ -49,6 +49,10 @@ def execute_tabs_cycle(j):
     if (j % (NUMERO_DE_CONTAS * 2) > (NUMERO_DE_CONTAS - 1)):
         k = 1
 
+    if (j % NUMERO_DE_CONTAS == 0):
+        print(f"Terminamos ciclo n˚{j // NUMERO_DE_CONTAS}")
+        time.sleep(10)
+
     """Executa o ciclo de troca de abas."""
     print("Pressionando Ctrl + Command + F")
     pyautogui.hotkey('ctrl', 'command', 'f')

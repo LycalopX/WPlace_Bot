@@ -6,14 +6,9 @@ from PIL import Image
 from src.config import *
 from src.utils import *
 
-# Lógica do bot
+def encontrar_proximo_alvo(imagem_gabarito_redimensionada, last_x, last_y):
 
-def encontrar_proximo_alvo(imagem_gabarito, imagem_gabarito_redimensionada, origem_mapa, Número_de_pixels_pintados):
-    
-    w, h = imagem_gabarito.width // ESCALA_TELA, imagem_gabarito.height // ESCALA_TELA
-    caminho_temp = CAMINHO_SCREENSHOT_TEMP
-
-    screenshot_jogo = Image.open(caminho_temp).convert('RGBA')
+    screenshot_jogo = Image.open(CAMINHO_SCREENSHOT_TEMP).convert('RGBA')
 
     # Correção usando a divisão de piso //
     screenshot_jogo_redimensionada = screenshot_jogo.resize(
@@ -23,46 +18,43 @@ def encontrar_proximo_alvo(imagem_gabarito, imagem_gabarito_redimensionada, orig
 
     screenshot_jogo_redimensionada.save(CAMINHO_SCREENSHOT_TEMP_REDIMENSIONADA)
 
-    w = screenshot_jogo_redimensionada.width
-    h = screenshot_jogo_redimensionada.height
+    w, h = screenshot_jogo_redimensionada.size
 
-    for y_rel in range(h):
-        for x_rel in range(w):
+    for i in range(w * h):
+        
+        # Calculate the index of the pixel to check
+        pixel_index = ((last_y * w + last_x) + 1 + i) % (w * h)
+        x_rel = pixel_index % w
+        y_rel = pixel_index // w
 
-            cor_gabarito_rgba = imagem_gabarito_redimensionada.getpixel((x_rel, y_rel))
+        cor_gabarito_rgba = imagem_gabarito_redimensionada.getpixel((x_rel, y_rel))
 
-            if cor_gabarito_rgba[3] < 255:
-                continue
+        if cor_gabarito_rgba[3] < 255:
+            continue
 
-            cor_gabarito_rgb = cor_gabarito_rgba[:3]
-            
-            cor_ideal_na_paleta = encontrar_cor_mais_proxima(cor_gabarito_rgb, PALETA_DE_CORES)
-            cor_atual_jogo_rgb = screenshot_jogo_redimensionada.getpixel((x_rel, y_rel))[:3]
+        cor_gabarito_rgb = cor_gabarito_rgba[:3]
+        
+        cor_ideal_na_paleta = encontrar_cor_mais_proxima(cor_gabarito_rgb, PALETA_DE_CORES)
+        cor_atual_jogo_rgb = screenshot_jogo_redimensionada.getpixel((x_rel, y_rel))[:3]
 
-            # 3. Compara a cor da tela com a cor ideal DA PALETA, não do gabarito.
-            if not cores_sao_proximas(cor_ideal_na_paleta, cor_atual_jogo_rgb, TOLERANCIA_COR):
+        # 3. Compara a cor da tela com a cor ideal DA PALETA, não do gabarito.
+        if not cores_sao_proximas(cor_ideal_na_paleta, cor_atual_jogo_rgb, TOLERANCIA_COR):
 
-                if (Número_de_pixels_pintados > 0):
-                    Número_de_pixels_pintados -= 1
-                    continue
+            print(f"🎯 Alvo encontrado em ({x_rel}, {y_rel}). Cor Gabarito: {cor_gabarito_rgb}, Cor na Tela: {cor_atual_jogo_rgb}")
 
-                print(f"🎯 Alvo encontrado em ({x_rel}, {y_rel}). Cor Gabarito: {cor_gabarito_rgb}, Cor na Tela: {cor_atual_jogo_rgb}")
+            x_cor = mecanismo_de_correção_de_pixels(screenshot_jogo.width, x_rel, w) // 1
+            y_cor = mecanismo_de_correção_de_pixels(screenshot_jogo.height, y_rel, h) // 1
 
-                x_cor = mecanismo_de_correção_de_pixels(screenshot_jogo.width, x_rel, w)
-                y_cor = mecanismo_de_correção_de_pixels(screenshot_jogo.height, y_rel, h)
-                x_cor = x_cor - (x_cor % 1)
-                y_cor = y_cor - (y_cor % 1)
+            x_OG = (x_rel * ESCALA_DE_PIXELS + ESCALA_DE_PIXELS / 2) // 2 + x_cor
+            y_OG = (y_rel * ESCALA_DE_PIXELS + ESCALA_DE_PIXELS / 2) // 2 + y_cor
 
-                x_OG = (x_rel * ESCALA_DE_PIXELS + ESCALA_DE_PIXELS / 2) // 2 + x_cor
-                y_OG = (y_rel * ESCALA_DE_PIXELS + ESCALA_DE_PIXELS / 2) // 2 + y_cor
+            print(f"Coordenada corrigida: ({x_cor}, {y_cor})")
+            print(f"Coordenada com correção: ({x_OG}, {y_OG})")
+            print(f"Coordenada redimensionada: ({x_rel}, {y_rel})")
 
-                print(f"Coordenada corrigida: ({x_cor}, {y_cor})")
-                print(f"Coordenada com correção: ({x_OG}, {y_OG})")
-                print(f"Coordenada redimensionada: ({x_rel}, {y_rel})")
+            return [{'coord_arte': (x_OG, y_OG), 'cor_alvo': cor_gabarito_rgb}, x_rel, y_rel]
 
-                return {'coord_arte': (x_OG, y_OG), 'cor_alvo': cor_gabarito_rgb}
-
-    return None
+    return None, last_x, last_y
 
 def pintar_pixel(coord_arte, cor_alvo, cor_anterior):
     """

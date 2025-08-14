@@ -5,15 +5,13 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import time
+import subprocess
 
 # Importando nossas configurações e utilitários
 from src.config import *
 from src.utils import *
 from src.logic import *
 import pyautogui
-
-import subprocess
-
 
 if __name__ == "__main__":
     
@@ -26,59 +24,63 @@ if __name__ == "__main__":
         print(f"❌ ERRO FATAL: Imagem gabarito '{CAMINHO_IMAGEM_A_PINTAR}'/'{CAMINHO_IMAGEM_A_PINTAR_REDIMENSIONADA}' não encontrada.")
         exit()
         
-    print(f"Gabarito '{CAMINHO_IMAGEM_A_PINTAR}' carregado ({imagem_gabarito.width}x{imagem_gabarito.height}).")
+    print(f"Gabarito '{CAMINHO_IMAGEM_A_PINTAR}' carregado ({imagem_gabarito.width}x{imagem_gabarito.height}).\n")
     print(">>> INICIANDO BOT CORRETOR EM 10 SEGUNDOS <<<")
     time.sleep(10)
 
-    i = 0
-    # quantas abas é para mudar
-    j = 0
+    n = 0
+    cycle = 0
     cor_anterior = None
+    x_rel, y_rel = 0, 0
+
+    x, y = PONTO_DE_ORIGEM_MAPA
+    w, h = imagem_gabarito.width // ESCALA_TELA, imagem_gabarito.height // ESCALA_TELA
 
     while True:
 
         if (SWITCH_TABS == 1):
-            execute_tabs_cycle(j)
-
-
-        x, y = PONTO_DE_ORIGEM_MAPA
-        w, h = imagem_gabarito.width // ESCALA_TELA, imagem_gabarito.height // ESCALA_TELA
-        caminho_temp = CAMINHO_SCREENSHOT_TEMP
-
-        time.sleep(1)
+            execute_tabs_cycle(cycle)
 
         try:
+            time.sleep(1)
             print(f"Capturando área de {w}x{h} pontos começando em ({x}, {y})...")
-            subprocess.run(['screencapture', '-x', '-R', f'{x},{y},{w},{h}', caminho_temp], check=True)
+            subprocess.run(['screencapture', '-x', '-R', f'{x},{y},{w},{h}', CAMINHO_SCREENSHOT_TEMP], check=True)
 
         except Exception as e:
             print(f"❌ Erro ao usar 'screencapture': {e}")
 
-        # A sequência de cliques humanizados continua a mesma.
+        # Abre a paleta
         pyautogui.click(BOTAO_ABRIR_PALETA_POS[0], BOTAO_ABRIR_PALETA_POS[1])
-        time.sleep(2)
-        # para preencher o captcha
+        time.sleep(1)
+
+        # Para preencher o captcha (se tiver)
         pyautogui.click(BOTAO_ABRIR_PALETA_POS[0], BOTAO_ABRIR_PALETA_POS[1])
 
-        for i in range (NUMERO_DE_PIXELS_POR_VEZ):
-            alvo = encontrar_proximo_alvo(imagem_gabarito, imagem_gabarito_redimensionada, PONTO_DE_ORIGEM_MAPA, i)
+        for n in range (NUMERO_DE_PIXELS_POR_VEZ):
+            # The function now correctly returns a 3-element tuple, even on failure
+            alvo, x_rel, y_rel = encontrar_proximo_alvo(imagem_gabarito_redimensionada, x_rel, y_rel)
 
             if alvo is None:
                 print("\n✅🎉====== DESENHO CONCLUÍDO E VERIFICADO! ======🎉✅")
                 print("Aguardando 180 segundos antes de verificar novamente...")
 
                 time.sleep(2)
+                # Termina o desenho
                 pyautogui.click(BOTAO_ABRIR_PALETA_POS[0], BOTAO_ABRIR_PALETA_POS[1])
+
+                # Espera até o próximo ciclo de verificação
                 time.sleep(180)
-                continue
+                
+                # Break out of this for-loop and start the main while-loop again
+                break 
 
             cor_anterior = pintar_pixel(alvo['coord_arte'], alvo['cor_alvo'], cor_anterior)
-            i += 1
 
-        time.sleep(1)
+        # Termina o desenho
         pyautogui.click(BOTAO_ABRIR_PALETA_POS[0], BOTAO_ABRIR_PALETA_POS[1])
 
         print(f"Aguardando cooldown de {COOLDOWN_ENTRE_ACOES} segundos...")
         time.sleep(COOLDOWN_ENTRE_ACOES)
 
-        j += 1
+        cycle += 1
+        x_rel, y_rel = 0, 0
