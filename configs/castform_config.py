@@ -1,5 +1,5 @@
 
-CAMINHO_IMAGEM_A_PINTAR = './images/castform/Castform.png'
-CAMINHO_IMAGEM_A_PINTAR_REDIMENSIONADA = './images/castform/Castform_resized.png'
+CAMINHO_IMAGEM_A_PINTAR = './images/paintings/castform/Castform.png'
+CAMINHO_IMAGEM_A_PINTAR_REDIMENSIONADA = './images/paintings/castform/Castform_resized.png'
 ESCALA_DE_PIXELS = 16 * 1.024
 PONTO_DE_ORIGEM_MAPA = (292, 122) # Ponto (X, Y) do pixel do canto superior esquerdo da sua arte no mapa. - Mais comum

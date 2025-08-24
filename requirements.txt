@@ -1,0 +1,6 @@
+Pillow
+pyautogui
+playsound
+pytesseract
+opencv-python
+numpy 

@@ -26,4 +26,4 @@ if __name__ == "__main__":
 #    proportion = (1/3.79439252336)
 #    proportion = 16.6170212766
     proportion = 1.024*16
-    resize_image("./lucky_star.png", "./lucky_star_resized.png", proportion)
+    resize_image("./takanaka og/(2,4).png", "./takanaka og/(2,4)_resized.png", proportion)

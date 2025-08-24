@@ -73,10 +73,10 @@ if __name__ == '__main__':
     # You can adjust this value. A lower value is stricter.
     # Start with a higher value (e.g., 4000) to replace more colors, then lower it
     # to fine-tune and leave anti-aliasing alone.
-    TOLERANCE = 60 # This corresponds to a squared distance of 3600
+    TOLERANCE = 0 # This corresponds to a squared distance of 3600
     
-    input_file = 'output.png'
-    output_file = 'cv.png'
+    input_file = 'takanaka og.jpeg'
+    output_file = 'takanaka og.jpeg'
 
     try:
         with Image.open(input_file).convert('RGBA') as img:

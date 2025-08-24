@@ -14,7 +14,8 @@ from src.logic import *
 import pyautogui
 
 if __name__ == "__main__":
-    
+    playWinSound()
+
     print("Carregando imagem gabarito...")
     try:
         imagem_gabarito = Image.open(CAMINHO_IMAGEM_A_PINTAR).convert('RGBA')
@@ -41,6 +42,9 @@ if __name__ == "__main__":
         if (SWITCH_TABS == 1):
             execute_tabs_cycle(cycle)
 
+        # Chama a nova função única que faz todo o trabalho
+        NUMERO_DE_PIXELS_POR_VEZ = find_and_read_pixel_count()
+
         try:
             time.sleep(1)
             print(f"Capturando área de {w}x{h} pontos começando em ({x}, {y})...")
@@ -48,6 +52,16 @@ if __name__ == "__main__":
 
         except Exception as e:
             print(f"❌ Erro ao usar 'screencapture': {e}")
+            
+        screenshot_jogo = Image.open(CAMINHO_SCREENSHOT_TEMP).convert('RGBA')
+
+        # Correção usando a divisão de piso //
+        screenshot_jogo_redimensionada = screenshot_jogo.resize(
+            (int(imagem_gabarito_redimensionada.width), int(imagem_gabarito_redimensionada.height)), 
+            Image.Resampling.NEAREST
+        )
+
+        screenshot_jogo_redimensionada.save(CAMINHO_SCREENSHOT_TEMP_REDIMENSIONADA)
 
         # Abre a paleta
         pyautogui.click(BOTAO_ABRIR_PALETA_POS[0], BOTAO_ABRIR_PALETA_POS[1])
@@ -58,7 +72,7 @@ if __name__ == "__main__":
 
         for n in range (NUMERO_DE_PIXELS_POR_VEZ):
             # The function now correctly returns a 3-element tuple, even on failure
-            alvo, x_rel, y_rel = encontrar_proximo_alvo(imagem_gabarito_redimensionada, x_rel, y_rel)
+            alvo, x_rel, y_rel = encontrar_proximo_alvo(screenshot_jogo, imagem_gabarito_redimensionada, screenshot_jogo_redimensionada, x_rel, y_rel)
 
             if alvo is None:
                 print("\n✅🎉====== DESENHO CONCLUÍDO E VERIFICADO! ======🎉✅")
@@ -69,6 +83,7 @@ if __name__ == "__main__":
                 pyautogui.click(BOTAO_ABRIR_PALETA_POS[0], BOTAO_ABRIR_PALETA_POS[1])
 
                 # Espera até o próximo ciclo de verificação
+                playWinSound()
                 time.sleep(180)
                 
                 # Break out of this for-loop and start the main while-loop again
@@ -84,3 +99,4 @@ if __name__ == "__main__":
 
         cycle += 1
         x_rel, y_rel = 0, 0
+        cor_anterior = None

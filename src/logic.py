@@ -6,17 +6,7 @@ from PIL import Image
 from src.config import *
 from src.utils import *
 
-def encontrar_proximo_alvo(imagem_gabarito_redimensionada, last_x, last_y):
-
-    screenshot_jogo = Image.open(CAMINHO_SCREENSHOT_TEMP).convert('RGBA')
-
-    # Correção usando a divisão de piso //
-    screenshot_jogo_redimensionada = screenshot_jogo.resize(
-        (int(imagem_gabarito_redimensionada.width), int(imagem_gabarito_redimensionada.height)), 
-        Image.Resampling.NEAREST
-    )
-
-    screenshot_jogo_redimensionada.save(CAMINHO_SCREENSHOT_TEMP_REDIMENSIONADA)
+def encontrar_proximo_alvo(screenshot_jogo, imagem_gabarito_redimensionada, screenshot_jogo_redimensionada, last_x, last_y):
 
     w, h = screenshot_jogo_redimensionada.size
 
