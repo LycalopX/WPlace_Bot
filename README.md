@@ -1,4 +1,5 @@
 ### README Corrigido e Aprimorado
+<img src="images/paintings/sceptile/new_big_sceptile.png" alt="Sceptile pixel art" width="128" align="right">
 
 # WPlace\_Bot
 
