@@ -25,5 +25,6 @@ if __name__ == "__main__":
 #    proportion = (1.02455357143 * 8 / 5)
 #    proportion = (1/3.79439252336)
 #    proportion = 16.6170212766
-    proportion = 1.024*16
-    resize_image("./takanaka og/(2,4).png", "./takanaka og/(2,4)_resized.png", proportion)
+#    proportion = 1.024*16
+    proportion = 1/4
+    resize_image("./sv_base.png", "./sv_base.png", proportion)

@@ -3,4 +3,4 @@ pyautogui
 playsound
 pytesseract
 opencv-python
-numpy 
+numpy

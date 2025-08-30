@@ -5,7 +5,6 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import time
-import subprocess
 
 # Importando nossas configurações e utilitários
 from src.config import *
@@ -35,7 +34,7 @@ if __name__ == "__main__":
     x_rel, y_rel = 0, 0
 
     x, y = PONTO_DE_ORIGEM_MAPA
-    w, h = imagem_gabarito.width // ESCALA_TELA, imagem_gabarito.height // ESCALA_TELA
+    w, h = imagem_gabarito.width, imagem_gabarito.height
 
     while True:
 
@@ -48,10 +47,13 @@ if __name__ == "__main__":
         try:
             time.sleep(1)
             print(f"Capturando área de {w}x{h} pontos começando em ({x}, {y})...")
-            subprocess.run(['screencapture', '-x', '-R', f'{x},{y},{w},{h}', CAMINHO_SCREENSHOT_TEMP], check=True)
+
+    # Unified, cross-platform method using PyAutoGUI for both OS's
+            screenshot = pyautogui.screenshot(region=(x, y, w, h))
+            screenshot.save(CAMINHO_SCREENSHOT_TEMP)
 
         except Exception as e:
-            print(f"❌ Erro ao usar 'screencapture': {e}")
+            print(f"❌ Erro ao capturar a tela: {e}")
             
         screenshot_jogo = Image.open(CAMINHO_SCREENSHOT_TEMP).convert('RGBA')
 
