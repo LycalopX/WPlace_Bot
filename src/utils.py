@@ -99,7 +99,7 @@ def encontrar_cor_mais_proxima(cor_alvo, paleta):
     return min(paleta.keys(), key=lambda cor: sum((a - b) ** 2 for a, b in zip(cor_alvo, cor)))
 
 def mecanismo_de_correção_de_pixels(dim_original, dim_pixel, dim_pixel_completa):
-    """Calcula correção de pixels da imagem original para a imagem redimensionada."""
+    """Calcula correção de pixels da imagem originalexecute_tabs_cycle para a imagem redimensionada."""
 
     porcentagem_percorrida = dim_pixel / dim_pixel_completa
     cor = (dim_original - ESCALA_DE_PIXELS * dim_pixel_completa) * porcentagem_percorrida
@@ -110,13 +110,13 @@ def execute_tabs_cycle(j):
 
     # Para focar na janela, e ter certeza que nenhum pixel está clicado
     time.sleep(0.5)
-    pyautogui.moveTo(214, 423)
-    time.sleep(0.5)
-    pyautogui.click(214, 423)
-    time.sleep(1)
-    print("⌨️ Pressionando a tecla ESC...")
-    pyautogui.press('esc')
-    time.sleep(1)
+##    pyautogui.moveTo(214, 423)
+##    time.sleep(0.5)
+##    pyautogui.click(214, 423)
+##    time.sleep(1)
+##    print("⌨️ Pressionando a tecla ESC...")
+##    pyautogui.press('esc')
+##    time.sleep(1)
 
     k = 0
 
@@ -146,6 +146,7 @@ def execute_tabs_cycle(j):
     time.sleep(2)
     pyautogui.hotkey('ctrl', 'command', 'f')
     pyautogui.hotkey('ctrl', 'command', 'f')
+    time.sleep(2)
     time.sleep(2)
 
 

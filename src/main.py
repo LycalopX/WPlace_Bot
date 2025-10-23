@@ -46,17 +46,31 @@ if __name__ == "__main__":
 
         try:
             time.sleep(1)
-            print(f"Capturando área de {w}x{h} pontos começando em ({x}, {y})...")
+            print(f"Capturando tela inteira para recortar a área de {w}x{h} pontos em ({x}, {y})...")
 
-    # Unified, cross-platform method using PyAutoGUI for both OS's
-            screenshot = pyautogui.screenshot(region=(x, y, w, h))
-            screenshot.save(CAMINHO_SCREENSHOT_TEMP)
+            # 1. Captura a tela inteira
+            screenshot_tela_inteira = pyautogui.screenshot()
+
+            # 2. Calcula a área de recorte com a sua fórmula corrigida
+            left = x * ESCALA_TELA
+            top = y * ESCALA_TELA
+            right = left + w
+            bottom = top + h
+            area_de_recorte = (left, top, right, bottom)
+
+            # 3. Recorta a imagem. O resultado terá as dimensões (w, h)
+            screenshot_jogo = screenshot_tela_inteira.crop(area_de_recorte)
+            
+            # (Opcional) Salvar a captura para depuração
+            screenshot_jogo.save(CAMINHO_SCREENSHOT_TEMP)
 
         except Exception as e:
             print(f"❌ Erro ao capturar a tela: {e}")
-            
-        screenshot_jogo = Image.open(CAMINHO_SCREENSHOT_TEMP).convert('RGBA')
+            # Pula para a próxima iteração em caso de erro
+            time.sleep(COOLDOWN_ENTRE_ACOES)
+            continue
 
+        
         # Correção usando a divisão de piso //
         screenshot_jogo_redimensionada = screenshot_jogo.resize(
             (int(imagem_gabarito_redimensionada.width), int(imagem_gabarito_redimensionada.height)), 

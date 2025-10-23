@@ -4,7 +4,7 @@
 # ==============================================================================
 
 # escolha sua config!
-from configs.takanaka_og import *
+from configs.mew_config import *
 
 # --- Configurações do Alvo ---
 CAMINHO_SCREENSHOT_TEMP = './images/temp_screenshot.png'
